@@ -73,3 +73,19 @@ function chartBuilder(sample) {
                 title: "OTU ID",
             }
         };
+        
+        Plotly.newPlot("bar", trace1, barLayout);
+
+        var trace2 = [
+            {
+            
+            x: otu_ids,
+            y: sample_values,
+            text: otu_labels,
+            mode: "markers",
+            marker: {
+                size: sample_values,
+                color: otu_ids,
+                colorscale: "YlGNBu"
+            }
+        }];
