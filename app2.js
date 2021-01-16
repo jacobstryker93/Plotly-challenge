@@ -39,5 +39,16 @@ function chartBuilder(sample) {
 d3.json("sample.json").then((data) => {
     var samples = data.samples;
     var sample_id = samples.filter(item => item.id == sample);
+    var result = sample_id[0];
+
+    var otu_ids = result.otu_ids;
+    var otu_labels = result.otu_labels;
+    var sample_values = result.sample_values;
+    var yticks = otu_ids.slice(0, 10).map(otuID => `OTU ${otuID}`).reverse();
+
+    var trace1 =  [
+    {
+        y
+    }]
 })
 }
