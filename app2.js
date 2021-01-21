@@ -15,7 +15,6 @@ d3.json("samples.json").then((data) => {
     buildCharts(initSample);
     metadata(initSample);
 });
-
 function metadata(sample) {
     d3.json("sample.json").then((data) => {
         var metadata = data.metadata;
@@ -48,44 +47,57 @@ function chartBuilder(sample) {
 
         var trace1 = [
             {
-                y: yticks,
-                x: sample_values.slice(0, 10).reverse(),
-                text: otu_labels.slice(0, 10).reverse(),
-                mode: "markers",
-                marker: {
-                    color: 'blue',
-                }
-            }]
-    })
-};
-
-        var hBarLayout = {
-            title: "Top 10 Bacteria Found",
+              y: yticks,
+              x: sample_values.slice(0, 10).reverse(),
+              text: otu_labels.slice(0, 10).reverse(),
+              type: "bar",
+              orientation: "h",
+              marker: {
+              color: 'lightblue',
+            }
+            }
+            ];
+            var barLayout = {
+            title: "Top 10 Bacteria Cultures Found",
             font:{
                 family: 'Arial'
-
             },
-            margin: {t: 30, l: 150},
+            margin: { t: 30, l: 150 },
             xaxis: {
-                title: "Sample Value",
+              title: "Sample Value",
             },
             yaxis: {
-                title: "OTU ID",
+              title: "OTU ID",
             }
-        };
-        
-        Plotly.newPlot("bar", trace1, barLayout);
+            };
+            Plotly.newPlot("bar", trace1, barLayout);
+var trace2 = [
+    {
 
-        var trace2 = [
-            {
-            
-            x: otu_ids,
-            y: sample_values,
-            text: otu_labels,
-            mode: "markers",
-            marker: {
-                size: sample_values,
-                color: otu_ids,
-                colorscale: "YlGNBu"
-            }
-        }];
+        x: otu_ids,
+        y: sample_values,
+        text: otu_labels,
+        mode: "markers",
+        marker: {
+            size: sample_values,
+            color: otu_ids,
+            colorscale: "YlGNBu"
+        }
+    }];
+
+var bubbleChart = {
+    title: "Bacteria Cultures Per Sample",
+    margin: { t: 0 },
+    hovermode: "closest",
+    xaxis: { title: "OTU ID" },
+    margin: { t: 40 }
+};
+
+Plotly.newPlot("bubble", trace2, bubbleChart);
+});
+}
+
+function optionChanged(newSample) {
+    chartBuilder(newSample);
+    metadata(newSample);
+}
